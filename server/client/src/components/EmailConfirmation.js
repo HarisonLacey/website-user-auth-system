@@ -7,7 +7,8 @@ import styled from "styled-components";
 
 const ResponsePara = styled.p`
   color: ${(props) =>
-    props.color === "Reset Email Has Been Sent. Please Follow Instructions"
+    props.color ===
+    "Reset Email Has Been Sent. Please Follow Instructions. Make Sure To Check Spam Folder"
       ? "green"
       : "red"};
 `;

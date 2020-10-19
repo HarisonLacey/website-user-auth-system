@@ -4,6 +4,7 @@ const cookie = require("cookie");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+sgTransport = require("nodemailer-sendgrid-transport");
 
 // register user
 module.exports.signup = async (req, res) => {
@@ -93,13 +94,13 @@ module.exports.emailConfirmation = async (req, res) => {
     });
     switch (user !== null) {
       case true:
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.GMAIL,
-            pass: process.env.GMAIL_PASSWORD,
-          },
-        });
+        const transporter = nodemailer.createTransport(
+          sgTransport({
+            auth: {
+              api_key: process.env.SENDGRID_API_KEY,
+            },
+          })
+        );
         let token = crypto.randomBytes(10).toString("hex");
         user.reset_token = token;
         try {
@@ -112,8 +113,9 @@ module.exports.emailConfirmation = async (req, res) => {
         const mailOptions = {
           from: process.env.GMAIL,
           to: req.body.email,
+          replyTo: process.env.GMAIL,
           subject: "Password Reset",
-          html: `<h3>Follow Link Below</h3><a href="http://localhost:3001/?token=${token}">Reset Password</a>`,
+          html: `<h3>Follow Link Below</h3><a href="http://localhost:3000/?token=${token}">Reset Password</a>`,
         };
         transporter.sendMail(mailOptions, (err, info) => {
           if (err) {
@@ -121,7 +123,8 @@ module.exports.emailConfirmation = async (req, res) => {
           } else {
             console.log("email sent: " + info.response);
             res.status(200).json({
-              message: "Reset Email Has Been Sent. Please Follow Instructions",
+              message:
+                "Reset Email Has Been Sent. Please Follow Instructions. Make Sure To Check Spam Folder",
             });
           }
         });
