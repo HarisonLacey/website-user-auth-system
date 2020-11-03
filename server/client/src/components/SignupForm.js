@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -15,12 +15,47 @@ const SpinnerDiv = styled.div`
   color: black;
 `;
 
+const HR = styled.hr`
+  width: 0;
+`;
+
 const SignupForm = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signupResponse, setSignupResponse] = useState("");
+  useEffect(() => {
+    // text underline animation effect
+    const mouseOverFunction = () => {
+      let childArray = document.getElementsByClassName("third-container");
+      for (let i = 0; i < childArray.length; i++) {
+        childArray[i].onmouseenter = () => {
+          let count = 1;
+          let widthCount = 10;
+          let handle = setInterval(() => {
+            widthCount += 10;
+            childArray[i].children[1].style.width = `${widthCount}%`;
+            childArray[i].children[1].style.border = "solid 1px lightgrey";
+            count++;
+            if (count > 9) {
+              window.clearInterval(handle);
+            }
+          }, 20);
+        };
+      }
+    };
+    mouseOverFunction();
+    const mouseOutFunction = () => {
+      let childArray = document.getElementsByClassName("third-container");
+      for (let i = 0; i < childArray.length; i++) {
+        childArray[i].onmouseleave = () => {
+          childArray[i].children[1].style.width = "0";
+        };
+      }
+    };
+    mouseOutFunction();
+  }, []);
   const signup = async (e) => {
     e.preventDefault();
     setSignupResponse(
@@ -72,8 +107,9 @@ const SignupForm = (props) => {
             name={props.name}
             href="http://localhost:3001/auth/google"
           >
-            <div name={props.name}>
+            <div className="third-container" name={props.name}>
               <img name={props.name} src={google} alt="google" /> Google Join
+              <HR />
             </div>
           </a>
         </Form.Group>
@@ -89,9 +125,10 @@ const SignupForm = (props) => {
             name={props.name}
             href="http://localhost:3001/auth/facebook"
           >
-            <div name={props.name}>
+            <div className="third-container" name={props.name}>
               <img name={props.name} src={facebook} alt="facebook" /> Facebook
               Join
+              <HR />
             </div>
           </a>
         </Form.Group>

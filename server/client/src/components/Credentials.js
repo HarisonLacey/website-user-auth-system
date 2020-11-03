@@ -7,6 +7,7 @@ import PasswordReset from "./PasswordReset";
 import Dashboard from "./Dashboard";
 import close from "../images/close.png";
 import Spinner from "react-bootstrap/Spinner";
+import { sizes } from "./deviceSizes";
 const queryString = require("query-string");
 
 const CredentialContainer = styled.div.attrs((props) => ({
@@ -24,6 +25,14 @@ const CredentialContainer = styled.div.attrs((props) => ({
     &:hover {
       text-decoration: underline;
     }
+    @media screen and (max-width: ${sizes.mobile}) {
+      margin-left: 3%;
+      font-size: 1rem;
+    }
+    @media screen and (min-width: ${sizes.tablet}) and (max-width: ${sizes.laptop}) {
+      margin-left: 3%;
+      font-size: 1rem;
+    }
   }
   .img {
     position: relative;
@@ -31,6 +40,14 @@ const CredentialContainer = styled.div.attrs((props) => ({
     bottom: 1rem;
     &:hover {
       cursor: pointer;
+    }
+    @media screen and (max-width: ${sizes.mobile}) {
+      left: 19rem;
+      bottom: 0.6rem;
+    }
+    @media screen and (min-width: ${sizes.tablet}) and (max-width: ${sizes.laptop}) {
+      left: 19rem;
+      bottom: 0.2rem;
     }
   }
   h5 {
@@ -44,7 +61,8 @@ const CredentialContainer = styled.div.attrs((props) => ({
     color: black;
     text-decoration: none;
   }
-  p, .credLoad {
+  p,
+  .credLoad {
     font-weight: bold;
     font-size: 0.8rem;
   }
@@ -53,6 +71,7 @@ const CredentialContainer = styled.div.attrs((props) => ({
   }
 `;
 
+// contains signup and login forms
 const FormContainer = styled.div`
   position: relative;
   right: 34rem;
@@ -61,12 +80,21 @@ const FormContainer = styled.div`
   padding: 10%;
   border: solid 1px lightgrey;
   border-radius: 5%;
+  @media screen and (max-width: ${sizes.mobile}) {
+    right: 14.3rem;
+    top: 5rem;
+  }
+  @media screen and (min-width: ${sizes.tablet}) and (max-width: ${sizes.laptop}) {
+    right: 21.8rem;
+    top: 5rem;
+  }
 `;
 
 const Credentials = (props) => {
   const [formType, setFormType] = useState(null);
 
   useEffect(() => {
+    // query checker for password reset email redirect
     const queryCheck = async () => {
       const query = queryString.parse(window.location.search);
       if (query.token || query.reset) {
@@ -188,6 +216,7 @@ const Credentials = (props) => {
     }
   };
 
+  // login and signup buttons
   const loginRender = () => {
     if (props.auth !== "authenticated" && props.auth !== "not authenticated") {
       return (

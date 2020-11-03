@@ -2,6 +2,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const User = require("../schema/userSchema");
 const cookie = require("cookie");
 
+// extract web token from cookie via request headers
 const cookieExtractor = (req) => {
   if (req.headers.cookie) {
     let token = cookie.parse(req.headers.cookie);
@@ -9,6 +10,7 @@ const cookieExtractor = (req) => {
   }
 };
 
+// jwt passport strategy
 module.exports = (passport) => {
   const opts = {};
   opts.jwtFromRequest = cookieExtractor;
