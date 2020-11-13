@@ -111,13 +111,12 @@ const DashboardPasswordReset = (props) => {
                 {dashboardResponse}
               </ResponsePara>
             </Form.Group>
-            <Form.Group name={props.name} as={Col} xs={4}></Form.Group>
-            <Form.Group name={props.name} as={Col} xs={4}>
-              <Button name={props.name} variant="primary" type="submit">
+            <Form.Group name={props.name} as={Col} xs={12}>
+              <Button name={props.name} variant="primary" type="submit" block>
                 Reset
               </Button>
             </Form.Group>
-            <Form.Group name={props.name} as={Col} xs={4}></Form.Group>
+            <Form.Group name={props.name} as={Col} xs={12}></Form.Group>
           </Form.Row>
         );
       case false:
