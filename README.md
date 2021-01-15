@@ -7,8 +7,8 @@ Users are able to signup or login and then once authenticated they are able to a
 ## Installation
 
 1. Copy folder to local machine
-2. Navigate to server folder and type 'npm start' command
-3. Navigate to client folder and type 'npm start' command
+2. Navigate to server folder and type 'npm install' then 'npm start' command
+3. Navigate to client folder and type 'npm install' then 'npm start' command
 4. Open http://localhost:3000 to view in browser
 
 ## Heroku Link
