@@ -1,2 +1,2 @@
-# website-user-auth-system
-Blueprint for website user authentication system.
+# Blueprint for Website User Authentication System
+
