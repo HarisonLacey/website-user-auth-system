@@ -1,6 +1,6 @@
 # Blueprint for Website User Authentication System
 
-This is a MERN stack application that demonstrates user authentication using Passport.js and JSON Web Tokens. 
+This is a MERN stack application built from scratch that demonstrates user authentication using Passport.js and JSON Web Tokens. 
 
 Users are able to signup or login and then once authenticated they are able to access their profile and change their details. 
 
