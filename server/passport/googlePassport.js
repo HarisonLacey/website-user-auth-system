@@ -9,10 +9,16 @@ module.exports.googlePassport = (passport) => {
         clientID: process.env.GOOGLE_ID,
         clientSecret: process.env.GOOGLE_SECRET,
         callbackURL: "http://localhost:3001/auth/google/callback",
+        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
       },
       (accessToken, refreshToken, profile, cb) => {
         User.findOrCreate(
-          { fullName: profile.displayName, googleId: profile.id, email: profile.emails, thirdParty: true },
+          {
+            fullName: profile.displayName,
+            googleId: profile.id,
+            email: profile.emails,
+            thirdParty: true,
+          },
           (err, user) => {
             return cb(err, user);
           }
@@ -37,4 +43,4 @@ module.exports.googleRoutes = (app) => {
       res.redirect("http://localhost:3000/redirect");
     }
   );
-}
+};
